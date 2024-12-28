@@ -22,3 +22,10 @@ def list_blogs(db: Session):
     blogs = db.query(Blog).filter(Blog.is_active==True).all()
     return blogs
 
+def delete_blog(id: int, author_id: int, db: Session):
+    blog = db.query(Blog).filter(Blog.id == id)
+    if not blog.first():
+        return {'error', f'Could not find blog with id {id}'}
+    blog.delete()
+    db.commit()
+    return {'msg': f'Deleted blog with id {id}'}

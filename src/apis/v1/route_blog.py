@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from db.session import get_db
 from schemas.blog import ShowBlog, CreateBlog
-from db.repository.blog import create_new_blog, retrieve_blog, list_blogs
+from db.repository.blog import create_new_blog, retrieve_blog, list_blogs, delete_blog
 
 router = APIRouter()
 
@@ -24,3 +24,11 @@ def get_blog(id: int, db: Session = Depends(get_db)):
 def get_all_blogs(db: Session = Depends(get_db)):
     blogs = list_blogs(db=db)
     return blogs
+
+
+@router.delete("/delete/{id}", status_code=status.HTTP_200_OK)
+def delete_a_blog(id: int, db: Session = Depends(get_db)):
+    message = delete_blog(id=id, author_id=1, db=db)
+    if message.get('error'):
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=message.get('error'))
+    return {'msg':f'Successfully deleted blog with id {id}'}
