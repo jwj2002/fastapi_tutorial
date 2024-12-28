@@ -11,4 +11,4 @@ class ShowUser(BaseModel):
     is_active: bool
     
     class Congif():
-        orm_mdoe = True
+        orm_mode = True
