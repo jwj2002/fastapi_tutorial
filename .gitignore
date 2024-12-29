@@ -2,3 +2,5 @@ __pycache__
 .env
 venv
 test_db.db
+.pre-commit-config.yaml
+setup.cfg
