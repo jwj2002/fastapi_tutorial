@@ -8,12 +8,12 @@ class CreateBlog(BaseModel):
     slug: str
     content: Optional[str] = None
     
-    # @model_validator(mode='before')
-    # @classmethod
-    # def generate_slug(cls, data: Any) -> Any:
-    #     if isinstance(data, dict):
-    #         data['slug'] = data['title'].replace(" ", "-").lower()
-    #     return data
+    @model_validator(mode='before')
+    @classmethod
+    def generate_slug(cls, data: Any) -> Any:
+        if isinstance(data, dict):
+            data['slug'] = data['title'].replace(" ", "-").lower()
+        return data
     
 class ShowBlog(BaseModel):
     title: str
